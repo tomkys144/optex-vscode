@@ -1,0 +1,25 @@
+{
+  "name": "optex-syntax-highlighting",
+  "displayName": "OpTeX Syntax Highlighting",
+  "description": "Syntax Highlighting for OpTeX macro package. For more information about OpTeX seek petr.olsak.net/optex/",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "optex",
+      "aliases": ["Optex LuaTeX format", "optex"],
+      "extensions": [".opm"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "optex",
+      "scopeName": "source.opm",
+      "path": "./syntaxes/optex.tmLanguage.json"
+    }]
+  }
+}
