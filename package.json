@@ -13,7 +13,7 @@
     "languages": [{
       "id": "optex",
       "aliases": ["Optex LuaTeX format", "optex"],
-      "extensions": [".opm"],
+      "extensions": [".opm,", ".tex"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
