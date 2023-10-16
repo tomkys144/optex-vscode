@@ -12,9 +12,9 @@
   "contributes": {
     "languages": [{
       "id": "optex",
-      "aliases": ["Optex LuaTeX format", "optex"],
+      "aliases": ["OpTeX", "optex"],
       "extensions": [".opm,", ".tex"],
-      "configuration": "./language-configuration.json"
+      "configuration": "./tex-language-configuration.json"
     }],
     "grammars": [{
       "language": "optex",
