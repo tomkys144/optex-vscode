@@ -2,8 +2,11 @@
 name: OpTeX
 scopeName: source.optex
 patterns:
-  - include: "#keywords"
   - include: "#comments"
+  - include: "#declarations"
+  - include: "#keywords"
+  - include: "#markup"
+  - include: "#functions"
 repository:
   keywords:
     patterns:
@@ -15,3 +18,31 @@ repository:
       - name: comment.line.percentage
         begin: "%"
         end: "\n"
+      - name: comment.block.documentation
+        begin: \\_doc
+        end: \\_cod
+        patterns:
+          - include: "#functions"
+  markup:
+    patterns:
+      - name: markup.raw
+        begin: "`"
+        end: "`"
+  declarations:
+    patterns:
+      - name: entity.name.function
+        match: (\\)_?(def)(\\)_?(\p{Alphabetic}+)((#[1-9])*)
+        captures:
+          '2': 
+            name: keyword.control
+          '4':
+            name: entity.name.function
+          '5': 
+            name: variable.parameter
+  functions:
+    patterns:
+      - name: entity.name.function
+        match: \\(\p{Alphabetic})+
+      - name: support.function
+        match: \\_(\p{Alphabetic})+
+
