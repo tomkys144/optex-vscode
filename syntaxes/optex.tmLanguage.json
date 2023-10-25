@@ -35,12 +35,12 @@
           "end": "\n"
         },
         {
-          "name": "text.testing",
+          "name": "comment.block.documentation",
           "begin": "\\\\_doc",
           "end": "\\\\_cod",
           "patterns": [
             {
-              "include": "#functions"
+              "include": "#documentationFunctions"
             }
           ]
         }
@@ -59,7 +59,7 @@
       "patterns": [
         {
           "name": "entity.name.function",
-          "match": "(\\\\)_?(def)(\\\\)_?(\\p{Alphabetic}+)((#[1-9])*)",
+          "match": "(\\\\)_?(def)\\s*(\\\\)_?(\\p{Alphabetic}+)((#[1-9])*)",
           "captures": {
             "2": {
               "name": "keyword.control"
@@ -83,6 +83,14 @@
         {
           "name": "support.function",
           "match": "\\\\_(\\p{Alphabetic})+"
+        }
+      ]
+    },
+    "documentationFunctions": {
+      "patterns": [
+        {
+          "name": "entity.name.function",
+          "match": "\\\\(\\^|~)?\\`\\\\(\\p{Alphabetic})+\\`"
         }
       ]
     }
