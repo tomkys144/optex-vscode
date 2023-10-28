@@ -64,7 +64,7 @@ For easier and usable editing, both the grammar and snippets are written in yaml
 
 ## Release Notes
 
-Releases are being documented in the [changelog](CHANGELOG.md)
+Releases are being documented in the [changelog](CHANGELOG.md).
 
 ## What's missing
 
@@ -79,7 +79,7 @@ gives me motivation to implement these features at all.
 
 ## License
 
-[MIT open-source license](LICENSE.md)
+[MIT open-source license](LICENSE)
 
 ## Used resources
 
