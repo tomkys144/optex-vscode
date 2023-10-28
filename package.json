@@ -1,15 +1,15 @@
 {
-  "name": "optex-syntax-highlighting",
-  "displayName": "OpTeX Syntax Highlighting",
-  "description": "Syntax Highlighting for OpTeX macro package. For more information about OpTeX seek petr.olsak.net/optex/",
-  "version": "0.0.1",
+  "name": "optex-vscode",
+  "displayName": "OpTeX for VSCode",
+  "description": "VSCode language support for OpTeX macro package. For more information about OpTeX seek petr.olsak.net/optex/",
+  "version": "1.1",
   "engines": {
     "vscode": "^1.82.0"
   },
   "categories": [
+    "Language Packs",
     "Programming Languages",
-    "Snippets",
-    "Language Packs"
+    "Snippets"
   ],
   "contributes": {
     "languages": [{
