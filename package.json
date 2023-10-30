@@ -2,7 +2,8 @@
   "name": "optex-vscode",
   "displayName": "OpTeX for VSCode",
   "description": "VSCode language support for OpTeX macro package. For more information about OpTeX seek petr.olsak.net/optex/",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "publisher": "spelifil",
   "author": {
     "name": "Filip Spelina"
   },
