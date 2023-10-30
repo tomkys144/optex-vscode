@@ -2,70 +2,107 @@
 name: OpTeX
 scopeName: source.optex
 patterns:
-- name: keyword.control.tex
-  match: "(\\\\)(backmatter|csname|else|endcsname|fi|frontmatter|mainmatter|unless|if(case|cat|csname|defined|dim|eof|false|fontchar|hbox|hmode|inner|mmode|num|odd|true|vbox|vmode|void|x)?)(?![a-zA-Z@])"
-  captures:
-    '1':
-      name: punctuation.definition.keyword.tex
-
-- name: meta.catcode.tex
-  match: "((\\\\)catcode)`(?:\\\\)?.(=)(\\d+)"
-  captures:
-    '1':
-      name: keyword.control.catcode.tex
-    '2':
-      name: punctuation.definition.keyword.tex
-    '3':
-      name: punctuation.separator.key-value.tex
-    '4':
-      name: constant.numeric.category.tex
-- begin: "(^[ \\t]+)?(?=%)"
-  beginCaptures:
-    '1':
-      name: punctuation.whitespace.comment.leading.tex
-  end: "(?!\\G)"
-  patterns:
-  - begin: "%:?"
-    beginCaptures:
-      '0':
-        name: punctuation.definition.comment.tex
-    end: "$\\n?"
-    name: comment.line.percentage.tex`
-  - begin: "^(%!TEX) (\\S*) ="
-    beginCaptures:
-      '1':
-        name: punctuation.definition.comment.tex
-    end: "$\\n?"
-    name: comment.line.percentage.directive.tex
-- match: "[\\[\\]]"
-  name: punctuation.definition.brackets.tex
-- begin: "(\\$\\$|\\$)"
-  beginCaptures:
-    '1':
-      name: punctuation.definition.string.begin.tex
-  end: "(\\1)"
-  endCaptures:
-    '1':
-      name: punctuation.definition.string.end.tex
-  name: meta.math.block.tex support.class.math.block.tex
-  patterns:
-  - match: "\\\\\\$"
-    name: constant.character.escape.tex
-  - include: "#math"
-  - include: "$self"
-- match: "\\\\\\\\"
-  name: keyword.control.newline.tex
-- captures:
-    '1':
-      name: punctuation.definition.function.tex
-  match: "(\\\\)(?:[\\p{Alphabetic}@]+|[,;])"
-  name: support.function.general.tex
-- captures:
-    '1':
-      name: punctuation.definition.keyword.tex
-  match: "(\\\\)[^a-zA-Z@]"
-  name: constant.character.escape.tex
+  - include: "#comments"
+  - include: "#declarations"
+  - include: "#keywords"
+  - include: "#markup"
+  - include: "#mathStart"
+  - include: "#registers"
+  - include: "#functions" 
 repository:
+  keywords:
+    patterns:
+      # plaintex keywords
+      - name: keyword.control
+        match: (\\)\b(bye|input|endinput|backmatter|csname|else|endcsname|fi|frontmatter|mainmatter|unless|if(case|cat|csname|defined|dim|eof|false|fontchar|hbox|hmode|inner|mmode|num|odd|true|vbox|vmode|void|x)?)\b
+      # optex plaintex keywords
+      - name: keyword.control.import
+        match: (\\)_\b(bye|input|endinput|backmatter|csname|else|endcsname|fi|frontmatter|mainmatter|unless|if(case|cat|csname|defined|dim|eof|false|fontchar|hbox|hmode|inner|mmode|num|odd|true|vbox|vmode|void|x)?)\b
+      # optex common keywords
+      - name: keyword.other
+        match: (\\)_?(typosize|fontfam|margins|load|useoptex)
+  registers:
+    patterns:
+      # plaintex registers
+      - name: variable.language
+        match: (\\)_?(parindent|parskip|leftskip|lineskip|baselineskip|lineskiplimit|badness|hangafter|hangindent)
+  comments:
+    patterns:
+      - name: comment.line.percentage
+        begin: "%"
+        end: "\n"
+      - name: comment.block.documentation
+        begin: \\_doc
+        end: \\_cod
+        patterns:
+          - include: "#documentationFunctions"
+  markup:
+    patterns:
+      - name: markup.raw
+        begin: "`"
+        end: "`"
+      - contentName: markup.raw
+        begin: \\begtt
+        beginCaptures:
+          '0' : 
+            name: entity.name.function
+        end: \\endtt
+        endCaptures:
+          '0':
+            name: entity.name.function
+        patterns:
+          - include: "#mathstart"
+      - contentName: markup.list
+        begin: \\begitems
+        beginCaptures:
+          '0' : 
+            name: entity.name.function
+        end: \\enditems
+        endCaptures:
+          '0':
+            name: entity.name.function
+  declarations:
+    patterns:
+      - name: entity.name.function
+        match: (\\)(_|\.)?(def|eoldef|edef|xdef|gdef)\s*(\\)(_|\.)?(\p{Alphabetic}+)\s*((#[1-9][a-zA-Z\-:.;()]*\s?)*)
+        captures:
+          '3': 
+            name: keyword.control
+          '6':
+            name: entity.name.function
+          '7': 
+            name: variable.parameter
+  functions:
+    patterns:
+      - name: entity.name.function
+        match: \\\p{Alphabetic}([\p{Alphabetic}_])+
+      - name: support.function
+        match: \\(_|\.)([\p{Alphabetic}_])+
+
+  # unlike normal functions, here are added options for \^~ documentation specifiers
+  documentationFunctions:
+    patterns:
+      - name: entity.name.function
+        match: \\(\^|~)?\`\\(\p{Alphabetic})+\`
+
+  mathStart:
+    patterns:
+    - begin: "(\\$\\$|\\$)"
+      beginCaptures:
+        '1':
+          name: punctuation.definition.string.begin.tex
+      end: "(\\1)"
+      endCaptures:
+        '1':
+          name: punctuation.definition.string.end.tex
+      name: support.class.math.block.tex
+      patterns:
+      - match: "\\\\\\$"
+        name: constant.character.escape.tex
+      - include: "#math"
+      - include: "$self"
+
+  # math patterns, copy from normal tex grammer, this shit is way too complicated
   math:
     patterns:
     - begin: "((\\\\)(?:text|mbox))(\\{)"
@@ -144,15 +181,3 @@ repository:
       name: constant.numeric.math.tex
     - match: "[\\+\\*/_\\^-]"
       name: punctuation.math.operator.tex
-  braces:
-    begin: "(?<!\\\\)\\{"
-    beginCaptures:
-      '0':
-        name: punctuation.group.begin.tex
-    end: "(?<!\\\\)\\}"
-    endCaptures:
-      '0':
-        name: punctuation.group.end.tex
-    name: meta.group.braces.tex
-    patterns:
-    - include: "#braces"

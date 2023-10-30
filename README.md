@@ -1,65 +1,99 @@
-# optex-syntax-highlighting README
+# OpTeX for VSCode 
 
-This is the README for your extension "optex-syntax-highlighting". After writing up a brief description, we recommend including the following sections.
+This extension provides support in VSCode for **OpTeX**. A LuaTeX format based on Plain TeX macros and on OPmac macros. Look at [**OpTeX** project webpage](https://petr.olsak.net/optex/) for more info. 
+
+This extension aims to make writing OpTeX documents and packages as least as comfortable as writing LaTeX ones, if not better.
+
+## Quick start
+
+If you are writing an OpTeX package with `.opm` extension, then that may be recognized automatically.
+
+If not, or you write simple `.tex` file, you will probably need to specify to vscode you are using OpTeX language.
+
+Either type ` > Change Language Mode` into command palette and then select `optex` or click the language selection in lower right corned. `Ctrl-K m ` shortcut should also open the selection menu 
+on default keybindings. 
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension currently provides:
 
-For example if there is an image subfolder under your extension project workspace:
+- Syntax Highlighting
+- Snippets
 
-\!\[feature X\]\(images/feature-x.png\)
+### Syntax Highlighting
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+<p align=center>
+<img src="img/syntax_animation.gif" width=75%>
+<br/>
+<em>(Syntax Highlighting with Monokai theme)</em>
+</p>
 
-## Requirements
+Syntax highlighting is implemented with a custom TextMate grammar file. Meaning the grammar should be in theory easily adaptable for other editors. 
+(In practice though, working with TextMate Grammar is terrible.)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+I have written my grammar from scratch to be as clear and concise as possible. Sometimes the highlighting might seem blunt and inconsistent. Please do not hesitate to leave feedback 
+and report **issues** in the [**github repository**](https://github.com/BasileosFelices/optex-vscode).
 
-## Extension Settings
+TeX Math highlighting is directly imported from [vscode's own](https://github.com/jlelong/vscode-latex-basics/blob/main/syntaxes/TeX.tmLanguage.json) grammar for TeX, which is published under MIT license.
+OpTeX does not make many changes to TeX default math.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Apart from fixing the basic TeX highlighting to include all macros from OpTeX (which might start with and include `_`), many more features are also implemented:
 
-For example:
+- OpTeX documentation **comments support**
+    - Includes highlighting for special documentation creation macros 
+- Important and often used keywords highlighting
+- "Complex" **macro declaration** recognition (or as complex as I managed)
 
-This extension contributes the following settings:
+**⚠️ Note**: This extension only provides scopes for syntax highlighting. Actual colors depend purely on your VSCode theme. Please keep in mind not all themes distinguish 
+between the scopes used here. For example, in many themes, internal OpTeX macros appear the same as all other macros.   
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### Snippets
 
-## Known Issues
+<p align=center>
+<img src="img/snippet_animation.gif" width=75%>
+<br/>
+<em>(begitems snippet example)</em>
+</p>
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+There are currently 7 smart snippets that could help accelerate your work. The most used blocks are defined:
+
+- Item list `\begitems`
+- Verbatim text `\begtt`
+- Text block `\begblock`
+- Multi-column `\begmulti`
+- Documentation block `\_doc`
+- BibTeX file import `\usebib`
+- Quick document setup `\setupdocument`
+
+All snippets use vscode options for jumping your cursor to the parameters for customization.
+
+### YAML
+
+For easier and usable editing, both the grammar and snippets are written in yaml. Before usage, these files must be converted to json. I used npm js-yaml module, as recommended by 
+[vscode guide](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide). 
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Releases are being documented in the [changelog](CHANGELOG.md).
 
-### 1.0.0
+## What's missing
 
-Initial release of ...
+- Intellisense autocomplete
+- Hover documentation
+- Smarter semantic highlighting
+- Automatic build/compilation 
+- Bugfixes for syntax highlighting probably
 
-### 1.0.1
+Please **leave an issue** for any feature requests that you would utilize and find yourself missing! Write even if they are written above as that both tells me what to focus on and 
+gives me motivation to implement these features at all.
 
-Fixed issue #.
+## License
 
-### 1.1.0
+[MIT open-source license](LICENSE)
 
-Added features X, Y, and Z.
+## Used resources
 
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+* [Visual Studio Code's Language extension Guide](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide)
+* [Writing a TextMate Grammar: Some Lessons Learned](https://www.apeth.com/nonblog/stories/textmatebundle.html)
 
 **Enjoy!**
