@@ -22,7 +22,11 @@ This extension currently provides:
 
 ### Syntax Highlighting
 
-\!\[feature X\]\(images/feature-x.png\)
+<p align=center>
+<img src="img/syntax_animation.gif" width=75%>
+<br/>
+<em>(Syntax Highlighting with Monokai theme)</em>
+</p>
 
 Syntax highlighting is implemented with a custom TextMate grammar file. Meaning the grammar should be in theory easily adaptable for other editors. 
 (In practice though, working with TextMate Grammar is terrible.)
@@ -44,6 +48,12 @@ Apart from fixing the basic TeX highlighting to include all macros from OpTeX (w
 between the scopes used here. For example, in many themes, internal OpTeX macros appear the same as all other macros.   
 
 ### Snippets
+
+<p align=center>
+<img src="img/snippet_animation.gif" width=75%>
+<br/>
+<em>(begitems snippet example)</em>
+</p>
 
 There are currently 7 smart snippets that could help accelerate your work. The most used blocks are defined:
 
