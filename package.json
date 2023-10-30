@@ -3,14 +3,33 @@
   "displayName": "OpTeX for VSCode",
   "description": "VSCode language support for OpTeX macro package. For more information about OpTeX seek petr.olsak.net/optex/",
   "version": "0.1.0",
+  "author": {
+    "name": "Filip Spelina"
+  },
+  "license": "MIT",
+  "icon": "img/vscodeOptexLogo.png",
   "engines": {
     "vscode": "^1.82.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BasileosFelices/optex-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/BasileosFelices/optex-vscode/issues"
   },
   "categories": [
     "Language Packs",
     "Programming Languages",
     "Snippets"
   ],
+  "keywords": [
+    "optex", 
+    "tex"
+  ],
+  "scripts": {
+    "package": "npx vsce package"
+  },
   "contributes": {
     "languages": [{
       "id": "optex",
