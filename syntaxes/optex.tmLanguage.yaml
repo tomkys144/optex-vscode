@@ -42,7 +42,7 @@ repository:
         begin: "`"
         end: "`"
       - contentName: markup.raw
-        begin: \\begtt
+        begin: \\begtt 
         beginCaptures:
           '0' : 
             name: entity.name.function
@@ -53,14 +53,20 @@ repository:
         patterns:
           - include: "#mathstart"
       - contentName: markup.list
-        begin: \\begitems
+        begin: \\begitems (\\style (.?))? 
         beginCaptures:
           '0' : 
             name: entity.name.function
+          '1' :
+            name: entity.name.function
+          '2' :
+            name: variable.parameter
         end: \\enditems
         endCaptures:
           '0':
             name: entity.name.function
+        patterns:
+          - include: "$self"
   declarations:
     patterns:
       - name: entity.name.function
