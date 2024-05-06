@@ -53,7 +53,7 @@
       "patterns": [
         {
           "name": "comment.line.percentage",
-          "begin": "%",
+          "begin": "(?<!\\\\)%",
           "end": "\n"
         },
         {

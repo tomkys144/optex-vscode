@@ -8,7 +8,7 @@ patterns:
   - include: "#markup"
   - include: "#mathStart"
   - include: "#registers"
-  - include: "#functions" 
+  - include: "#functions"
 repository:
   keywords:
     patterns:
@@ -29,7 +29,7 @@ repository:
   comments:
     patterns:
       - name: comment.line.percentage
-        begin: "%"
+        begin: "(?<!\\\\)%"
         end: "\n"
       - name: comment.block.documentation
         begin: \\_doc
@@ -44,7 +44,7 @@ repository:
       - contentName: markup.raw
         begin: \\begtt
         beginCaptures:
-          '0' : 
+          '0' :
             name: entity.name.function
         end: \\endtt
         endCaptures:
@@ -55,7 +55,7 @@ repository:
       - contentName: markup.list
         begin: \\begitems
         beginCaptures:
-          '0' : 
+          '0' :
             name: entity.name.function
         end: \\enditems
         endCaptures:
@@ -66,11 +66,11 @@ repository:
       - name: entity.name.function
         match: (\\)(_|\.)?(def|eoldef|edef|xdef|gdef)\s*(\\)(_|\.)?(\p{Alphabetic}+)\s*((#[1-9][a-zA-Z\-:.;()]*\s?)*)
         captures:
-          '3': 
+          '3':
             name: keyword.control
           '6':
             name: entity.name.function
-          '7': 
+          '7':
             name: variable.parameter
   functions:
     patterns:
